@@ -1,10 +1,13 @@
 // src/components/Contact.jsx
 import React, { useState } from "react";
+import { db } from "../firebase";
+import { collection, addDoc, serverTimestamp } from "firebase/firestore";
 
 const contactInfo = [
   {
     label: "EMAIL",
-    value: "Pendiente",
+    value: "contacto@diled3d.com.mx",
+    href: "mailto:contacto@diled3d.com.mx",
     icon: (
       <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#c9a96e" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round">
         <rect x="2" y="4" width="20" height="16" rx="2"/>
@@ -50,7 +53,7 @@ const socials = [
     name: "Facebook",
     href: "https://www.facebook.com/share/1E2CF9rRKe/",
     icon: (
-      <svg width="18" height="18" viewBox="0 0 24 24" fill="#c9a96e">
+      <svg width="16" height="16" viewBox="0 0 24 24" fill="#c9a96e">
         <path d="M18 2h-3a5 5 0 0 0-5 5v3H7v4h3v8h4v-8h3l1-4h-4V7a1 1 0 0 1 1-1h3z"/>
       </svg>
     ),
@@ -59,7 +62,7 @@ const socials = [
     name: "TikTok",
     href: "https://www.tiktok.com/@diled3d?lang=es",
     icon: (
-      <svg width="18" height="18" viewBox="0 0 24 24" fill="#c9a96e">
+      <svg width="16" height="16" viewBox="0 0 24 24" fill="#c9a96e">
         <path d="M19.59 6.69a4.83 4.83 0 0 1-3.77-4.25V2h-3.45v13.67a2.89 2.89 0 0 1-2.88 2.5 2.89 2.89 0 0 1-2.89-2.89 2.89 2.89 0 0 1 2.89-2.89c.28 0 .54.04.79.1V9.01a6.32 6.32 0 0 0-.79-.05 6.34 6.34 0 0 0-6.34 6.34 6.34 6.34 0 0 0 6.34 6.34 6.34 6.34 0 0 0 6.33-6.34V8.69a8.17 8.17 0 0 0 4.78 1.52V6.76a4.85 4.85 0 0 1-1.01-.07z"/>
       </svg>
     ),
@@ -79,33 +82,41 @@ export default function Contact() {
   const [form, setForm] = useState({ name: "", email: "", service: "", message: "" });
   const [sent, setSent] = useState(false);
   const [sending, setSending] = useState(false);
+  const [error, setError] = useState("");
 
   const handleChange = (e) => setForm({ ...form, [e.target.name]: e.target.value });
 
   const handleSubmit = async () => {
     if (!form.name || !form.email || !form.message) return;
     setSending(true);
-    // Placeholder: aquí conectarás EmailJS u otro servicio
-    await new Promise((r) => setTimeout(r, 1200));
+    setError("");
+    try {
+      await addDoc(collection(db, "cotizaciones"), {
+        nombre: form.name,
+        correo: form.email,
+        servicio: form.service || "No especificado",
+        mensaje: form.message,
+        fecha: serverTimestamp(),
+      });
+      setSent(true);
+    } catch (err) {
+      setError("Hubo un error al enviar. Intenta de nuevo.");
+      console.error(err);
+    }
     setSending(false);
-    setSent(true);
   };
 
   return (
     <section id="contacto" style={{ backgroundColor: "#122040", padding: "6rem 0", position: "relative", overflow: "hidden" }}>
 
-      {/* Dot grid */}
       <div style={{ position: "absolute", inset: 0, opacity: 0.04, backgroundImage: "radial-gradient(circle, #c9a96e 1px, transparent 1px)", backgroundSize: "36px 36px", pointerEvents: "none" }} />
-      {/* Glow */}
       <div style={{ position: "absolute", bottom: 0, left: "30%", width: 500, height: 400, background: "rgba(201,169,110,0.04)", filter: "blur(100px)", borderRadius: "50%", pointerEvents: "none" }} />
 
       {/* Header */}
       <div style={{ maxWidth: 1200, margin: "0 auto", padding: "0 2rem 3.5rem", boxSizing: "border-box", textAlign: "center" }}>
         <div style={{ display: "flex", alignItems: "center", justifyContent: "center", gap: 12, marginBottom: 16 }}>
           <div style={{ width: 40, height: 1, background: "rgba(201,169,110,0.4)" }} />
-          <span style={{ fontSize: 11, fontWeight: 700, textTransform: "uppercase", letterSpacing: "0.25em", color: "rgba(201,169,110,0.6)" }}>
-            Comunícate
-          </span>
+          <span style={{ fontSize: 11, fontWeight: 700, textTransform: "uppercase", letterSpacing: "0.25em", color: "rgba(201,169,110,0.6)" }}>Comunícate</span>
           <div style={{ width: 40, height: 1, background: "rgba(201,169,110,0.4)" }} />
         </div>
         <h2 style={{ fontFamily: "'Cormorant Garamond', serif", fontSize: "clamp(2rem, 4vw, 3rem)", fontWeight: 700, color: "white", margin: "0 0 10px", lineHeight: 1 }}>
@@ -119,34 +130,23 @@ export default function Contact() {
       {/* Grid */}
       <div style={{ maxWidth: 1200, margin: "0 auto", padding: "0 2rem", boxSizing: "border-box", display: "grid", gridTemplateColumns: "1fr 1.6fr", gap: "4rem", alignItems: "start" }}>
 
-        {/* LEFT — Info */}
+        {/* LEFT */}
         <div>
           <p style={{ color: "rgba(255,255,255,0.45)", fontSize: "0.95rem", lineHeight: 1.8, marginTop: 0, marginBottom: 32 }}>
             Trabajamos con empresas, instituciones educativas y emprendedores para materializar ideas con tecnología de vanguardia.
           </p>
-
-          {/* Contact items */}
           <div style={{ display: "flex", flexDirection: "column", gap: 20, marginBottom: 36 }}>
             {contactInfo.map((item) => (
               <div key={item.label} style={{ display: "flex", alignItems: "flex-start", gap: 14 }}>
-                <div style={{
-                  width: 40, height: 40, flexShrink: 0,
-                  borderRadius: 10,
-                  background: "rgba(201,169,110,0.08)",
-                  border: "1px solid rgba(201,169,110,0.2)",
-                  display: "flex", alignItems: "center", justifyContent: "center",
-                }}>
+                <div style={{ width: 40, height: 40, flexShrink: 0, borderRadius: 10, background: "rgba(201,169,110,0.08)", border: "1px solid rgba(201,169,110,0.2)", display: "flex", alignItems: "center", justifyContent: "center" }}>
                   {item.icon}
                 </div>
                 <div>
-                  <div style={{ fontSize: 9, fontWeight: 700, letterSpacing: "0.2em", textTransform: "uppercase", color: "rgba(201,169,110,0.45)", marginBottom: 3 }}>
-                    {item.label}
-                  </div>
+                  <div style={{ fontSize: 9, fontWeight: 700, letterSpacing: "0.2em", textTransform: "uppercase", color: "rgba(201,169,110,0.45)", marginBottom: 3 }}>{item.label}</div>
                   {item.href ? (
-                    <a href={item.href} target="_blank" rel="noreferrer" style={{ color: "rgba(255,255,255,0.75)", fontSize: "0.9rem", textDecoration: "none", transition: "color 0.2s" }}
+                    <a href={item.href} target="_blank" rel="noreferrer" style={{ color: "rgba(255,255,255,0.75)", fontSize: "0.9rem", textDecoration: "none" }}
                       onMouseEnter={e => e.target.style.color = "#c9a96e"}
-                      onMouseLeave={e => e.target.style.color = "rgba(255,255,255,0.75)"}
-                    >
+                      onMouseLeave={e => e.target.style.color = "rgba(255,255,255,0.75)"}>
                       {item.value}
                     </a>
                   ) : (
@@ -156,32 +156,14 @@ export default function Contact() {
               </div>
             ))}
           </div>
-
-          {/* Social links */}
           <div style={{ borderTop: "1px solid rgba(201,169,110,0.12)", paddingTop: 24 }}>
-            <div style={{ fontSize: 10, fontWeight: 700, letterSpacing: "0.2em", textTransform: "uppercase", color: "rgba(201,169,110,0.4)", marginBottom: 14 }}>
-              Redes sociales
-            </div>
+            <div style={{ fontSize: 10, fontWeight: 700, letterSpacing: "0.2em", textTransform: "uppercase", color: "rgba(201,169,110,0.4)", marginBottom: 14 }}>Redes sociales</div>
             <div style={{ display: "flex", gap: 10 }}>
               {socials.map((s) => (
-                <a
-                  key={s.name}
-                  href={s.href}
-                  target="_blank"
-                  rel="noreferrer"
-                  title={s.name}
-                  style={{
-                    width: 44, height: 44,
-                    borderRadius: 12,
-                    background: "rgba(201,169,110,0.07)",
-                    border: "1px solid rgba(201,169,110,0.2)",
-                    display: "flex", alignItems: "center", justifyContent: "center",
-                    textDecoration: "none",
-                    transition: "all 0.2s",
-                  }}
+                <a key={s.name} href={s.href} target="_blank" rel="noreferrer" title={s.name}
+                  style={{ width: 44, height: 44, borderRadius: 12, background: "rgba(201,169,110,0.07)", border: "1px solid rgba(201,169,110,0.2)", display: "flex", alignItems: "center", justifyContent: "center", textDecoration: "none", transition: "all 0.2s" }}
                   onMouseEnter={e => { e.currentTarget.style.background = "rgba(201,169,110,0.16)"; e.currentTarget.style.borderColor = "#c9a96e"; }}
-                  onMouseLeave={e => { e.currentTarget.style.background = "rgba(201,169,110,0.07)"; e.currentTarget.style.borderColor = "rgba(201,169,110,0.2)"; }}
-                >
+                  onMouseLeave={e => { e.currentTarget.style.background = "rgba(201,169,110,0.07)"; e.currentTarget.style.borderColor = "rgba(201,169,110,0.2)"; }}>
                   {s.icon}
                 </a>
               ))}
@@ -190,153 +172,59 @@ export default function Contact() {
         </div>
 
         {/* RIGHT — Formulario */}
-        <div style={{
-          background: "rgba(255,255,255,0.03)",
-          border: "1px solid rgba(201,169,110,0.15)",
-          borderRadius: 20,
-          padding: "2.5rem",
-          boxShadow: "0 20px 60px rgba(0,0,0,0.3)",
-        }}>
+        <div style={{ background: "rgba(255,255,255,0.03)", border: "1px solid rgba(201,169,110,0.15)", borderRadius: 20, padding: "2.5rem", boxShadow: "0 20px 60px rgba(0,0,0,0.3)" }}>
           {sent ? (
             <div style={{ textAlign: "center", padding: "2rem 0" }}>
               <div style={{ fontSize: 48, marginBottom: 16 }}>✅</div>
-              <h3 style={{ fontFamily: "'Cormorant Garamond', serif", fontSize: "1.8rem", color: "white", margin: "0 0 10px" }}>
-                ¡Mensaje enviado!
-              </h3>
-              <p style={{ color: "rgba(255,255,255,0.4)", fontSize: "0.95rem", margin: "0 0 24px" }}>
-                Nos pondremos en contacto contigo pronto.
-              </p>
-              <button
-                onClick={() => { setSent(false); setForm({ name: "", email: "", service: "", message: "" }); }}
-                style={{ padding: "10px 24px", background: "rgba(201,169,110,0.1)", border: "1px solid rgba(201,169,110,0.3)", color: "#c9a96e", borderRadius: 10, cursor: "pointer", fontSize: 14 }}
-              >
+              <h3 style={{ fontFamily: "'Cormorant Garamond', serif", fontSize: "1.8rem", color: "white", margin: "0 0 10px" }}>¡Mensaje enviado!</h3>
+              <p style={{ color: "rgba(255,255,255,0.4)", fontSize: "0.95rem", margin: "0 0 24px" }}>Nos pondremos en contacto contigo pronto.</p>
+              <button onClick={() => { setSent(false); setForm({ name: "", email: "", service: "", message: "" }); }}
+                style={{ padding: "10px 24px", background: "rgba(201,169,110,0.1)", border: "1px solid rgba(201,169,110,0.3)", color: "#c9a96e", borderRadius: 10, cursor: "pointer", fontSize: 14 }}>
                 Enviar otro mensaje
               </button>
             </div>
           ) : (
             <div style={{ display: "flex", flexDirection: "column", gap: 20 }}>
-
-              {/* Name + Email row */}
               <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: 16 }}>
-                {[
-                  { name: "name", label: "NOMBRE", placeholder: "Tu nombre completo", type: "text" },
-                  { name: "email", label: "CORREO", placeholder: "tu@correo.com", type: "email" },
-                ].map((f) => (
+                {[{ name: "name", label: "NOMBRE", placeholder: "Tu nombre completo", type: "text" }, { name: "email", label: "CORREO", placeholder: "tu@correo.com", type: "email" }].map((f) => (
                   <div key={f.name}>
-                    <label style={{ display: "block", fontSize: 9, fontWeight: 700, letterSpacing: "0.2em", textTransform: "uppercase", color: "rgba(201,169,110,0.55)", marginBottom: 7 }}>
-                      {f.label}
-                    </label>
-                    <input
-                      type={f.type}
-                      name={f.name}
-                      value={form[f.name]}
-                      onChange={handleChange}
-                      placeholder={f.placeholder}
-                      style={{
-                        width: "100%", boxSizing: "border-box",
-                        padding: "11px 14px",
-                        background: "rgba(255,255,255,0.04)",
-                        border: "1px solid rgba(201,169,110,0.18)",
-                        borderRadius: 10,
-                        color: "white", fontSize: "0.9rem",
-                        outline: "none",
-                      }}
+                    <label style={{ display: "block", fontSize: 9, fontWeight: 700, letterSpacing: "0.2em", textTransform: "uppercase", color: "rgba(201,169,110,0.55)", marginBottom: 7 }}>{f.label}</label>
+                    <input type={f.type} name={f.name} value={form[f.name]} onChange={handleChange} placeholder={f.placeholder}
+                      style={{ width: "100%", boxSizing: "border-box", padding: "11px 14px", background: "rgba(255,255,255,0.04)", border: "1px solid rgba(201,169,110,0.18)", borderRadius: 10, color: "white", fontSize: "0.9rem", outline: "none" }}
                       onFocus={e => e.target.style.borderColor = "rgba(201,169,110,0.55)"}
-                      onBlur={e => e.target.style.borderColor = "rgba(201,169,110,0.18)"}
-                    />
+                      onBlur={e => e.target.style.borderColor = "rgba(201,169,110,0.18)"} />
                   </div>
                 ))}
               </div>
-
-              {/* Service */}
               <div>
-                <label style={{ display: "block", fontSize: 9, fontWeight: 700, letterSpacing: "0.2em", textTransform: "uppercase", color: "rgba(201,169,110,0.55)", marginBottom: 7 }}>
-                  SERVICIO DE INTERÉS
-                </label>
-                <select
-                  name="service"
-                  value={form.service}
-                  onChange={handleChange}
-                  style={{
-                    width: "100%",
-                    padding: "11px 14px",
-                    background: "#0f1e38",
-                    border: "1px solid rgba(201,169,110,0.18)",
-                    borderRadius: 10,
-                    color: form.service ? "white" : "rgba(255,255,255,0.3)",
-                    fontSize: "0.9rem",
-                    outline: "none",
-                    cursor: "pointer",
-                  }}
+                <label style={{ display: "block", fontSize: 9, fontWeight: 700, letterSpacing: "0.2em", textTransform: "uppercase", color: "rgba(201,169,110,0.55)", marginBottom: 7 }}>SERVICIO DE INTERÉS</label>
+                <select name="service" value={form.service} onChange={handleChange}
+                  style={{ width: "100%", padding: "11px 14px", background: "#0f1e38", border: "1px solid rgba(201,169,110,0.18)", borderRadius: 10, color: form.service ? "white" : "rgba(255,255,255,0.3)", fontSize: "0.9rem", outline: "none", cursor: "pointer" }}
                   onFocus={e => e.target.style.borderColor = "rgba(201,169,110,0.55)"}
-                  onBlur={e => e.target.style.borderColor = "rgba(201,169,110,0.18)"}
-                >
+                  onBlur={e => e.target.style.borderColor = "rgba(201,169,110,0.18)"}>
                   <option value="" disabled>Selecciona un servicio</option>
-                  {services.map((s) => (
-                    <option key={s} value={s} style={{ background: "#0f1e38", color: "white" }}>{s}</option>
-                  ))}
+                  {services.map((s) => <option key={s} value={s} style={{ background: "#0f1e38", color: "white" }}>{s}</option>)}
                 </select>
               </div>
-
-              {/* Message */}
               <div>
-                <label style={{ display: "block", fontSize: 9, fontWeight: 700, letterSpacing: "0.2em", textTransform: "uppercase", color: "rgba(201,169,110,0.55)", marginBottom: 7 }}>
-                  MENSAJE
-                </label>
-                <textarea
-                  name="message"
-                  value={form.message}
-                  onChange={handleChange}
-                  placeholder="Describe tu proyecto o consulta..."
-                  rows={5}
-                  style={{
-                    width: "100%", boxSizing: "border-box",
-                    padding: "11px 14px",
-                    background: "rgba(255,255,255,0.04)",
-                    border: "1px solid rgba(201,169,110,0.18)",
-                    borderRadius: 10,
-                    color: "white", fontSize: "0.9rem",
-                    outline: "none", resize: "vertical",
-                    fontFamily: "inherit",
-                  }}
+                <label style={{ display: "block", fontSize: 9, fontWeight: 700, letterSpacing: "0.2em", textTransform: "uppercase", color: "rgba(201,169,110,0.55)", marginBottom: 7 }}>MENSAJE</label>
+                <textarea name="message" value={form.message} onChange={handleChange} placeholder="Describe tu proyecto o consulta..." rows={5}
+                  style={{ width: "100%", boxSizing: "border-box", padding: "11px 14px", background: "rgba(255,255,255,0.04)", border: "1px solid rgba(201,169,110,0.18)", borderRadius: 10, color: "white", fontSize: "0.9rem", outline: "none", resize: "vertical", fontFamily: "inherit" }}
                   onFocus={e => e.target.style.borderColor = "rgba(201,169,110,0.55)"}
-                  onBlur={e => e.target.style.borderColor = "rgba(201,169,110,0.18)"}
-                />
+                  onBlur={e => e.target.style.borderColor = "rgba(201,169,110,0.18)"} />
               </div>
-
-              {/* Submit */}
-              <button
-                onClick={handleSubmit}
-                disabled={sending || !form.name || !form.email || !form.message}
-                style={{
-                  padding: "14px",
-                  background: sending || !form.name || !form.email || !form.message ? "rgba(201,169,110,0.3)" : "#c9a96e",
-                  color: "#0b1728",
-                  fontWeight: 700, fontSize: 15,
-                  border: "none", borderRadius: 12,
-                  cursor: sending || !form.name || !form.email || !form.message ? "not-allowed" : "pointer",
-                  letterSpacing: "0.05em",
-                  transition: "all 0.2s",
-                  display: "flex", alignItems: "center", justifyContent: "center", gap: 8,
-                }}
-              >
+              {error && <p style={{ color: "#ff6b6b", fontSize: 13, margin: 0 }}>{error}</p>}
+              <button onClick={handleSubmit} disabled={sending || !form.name || !form.email || !form.message}
+                style={{ padding: "14px", background: sending || !form.name || !form.email || !form.message ? "rgba(201,169,110,0.3)" : "#c9a96e", color: "#0b1728", fontWeight: 700, fontSize: 15, border: "none", borderRadius: 12, cursor: sending || !form.name || !form.email || !form.message ? "not-allowed" : "pointer", letterSpacing: "0.05em", transition: "all 0.2s", display: "flex", alignItems: "center", justifyContent: "center", gap: 8 }}>
                 {sending ? (
-                  <>
-                    <span style={{ width: 16, height: 16, border: "2px solid #0b1728", borderTopColor: "transparent", borderRadius: "50%", display: "inline-block", animation: "spin 0.7s linear infinite" }} />
-                    Enviando...
-                  </>
-                ) : (
-                  "Enviar mensaje →"
-                )}
+                  <><span style={{ width: 16, height: 16, border: "2px solid #0b1728", borderTopColor: "transparent", borderRadius: "50%", display: "inline-block", animation: "spin 0.7s linear infinite" }} />Enviando...</>
+                ) : "Enviar mensaje →"}
               </button>
             </div>
           )}
         </div>
       </div>
-
-      <style>{`
-        @keyframes spin { to { transform: rotate(360deg); } }
-      `}</style>
+      <style>{`@keyframes spin { to { transform: rotate(360deg); } }`}</style>
     </section>
   );
 }
