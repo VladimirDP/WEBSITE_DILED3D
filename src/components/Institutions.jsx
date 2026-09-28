@@ -5,7 +5,7 @@ const events = [
   {
     id: 1,
     file: "Instituciones/CBTIXTAPALUCA-DILED3D.mp4",
-    name: "CBT IXTAPALUCA",
+    name: "CBT IXTAPALUCA", url: "",
     short: "Semana de la Ciencia y Tecnología",
     description:
       "Invitación por parte del CBT Ixtapaluca para participar en la Semana de la Ciencia y Tecnología, donde se impartieron pláticas sobre Impresión 3D y sus aplicaciones, provocando un gran interés entre los estudiantes.",
@@ -14,7 +14,7 @@ const events = [
   {
     id: 2,
     file: "Instituciones/TESOEM-DILED3D.mp4",
-    name: "TESOEM",
+    name: "TESOEM", url: "https://tesoem.edomex.gob.mx/",
     short: "1ª Cumbre Creativa · 10° Aniversario TICS",
     description:
       "Invitación por parte del Tecnológico de Estudios Superiores Oriente del Estado de México para la primera cumbre creativa y décimo aniversario de la carrera TICS, donde se impartió un curso de diseño 3D y sus aplicaciones.",
@@ -23,7 +23,7 @@ const events = [
   {
     id: 3,
     file: "Instituciones/UPA-DILED3D.mp4",
-    name: "UPA",
+    name: "UPA", url: "https://upa.edomex.gob.mx/",
     short: "Encuentro de Robótica",
     description:
       "Invitación por parte de la Universidad Politécnica de Atlautla en el Encuentro de Robótica, donde se dieron pláticas y promoción de impresiones 3D a todos los interesados dentro de la institución.",
@@ -32,7 +32,7 @@ const events = [
   {
     id: 4,
     file: "Instituciones/TESI-DILED3D.mp4",
-    name: "TESI",
+    name: "TESI", url: "https://tesixtapaluca.edomex.gob.mx/",
     short: "FLISOL — Festival Latinoamericano de Software Libre",
     description:
       "Invitación por parte del Tecnológico de Estudios Superiores de Ixtapaluca para el evento FLISOL, donde se dieron pláticas y promoción de impresiones 3D a todos los interesados dentro de la institución.",
@@ -41,7 +41,7 @@ const events = [
   {
     id: 5,
     file: "Instituciones/ITRCHALCO-DILED3D.mp4",
-    name: "ITR CHALCO",
+    name: "ITR CHALCO", url: "",
     short: "Presentación de Impresión 3D",
     description:
       "Invitación por parte del Instituto Tecnológico Roosevelt Chalco para una presentación de aplicaciones en impresión 3D y más acerca de esta tecnología, provocando mucho interés entre la comunidad estudiantil.",
@@ -50,7 +50,7 @@ const events = [
   {
     id: 6,
     file: "Instituciones/TESCHA-DILED3D.mp4",
-    name: "TESCHA",
+    name: "TESCHA", url: "https://tescha.edomex.gob.mx/",
     short: "25° Aniversario de la Institución",
     description:
       "Invitación por parte del Tecnológico de Estudios Superiores de Chalco para el evento del 25° Aniversario, donde se dieron pláticas y promoción de impresiones 3D a todos los interesados dentro de la institución.",
@@ -59,7 +59,7 @@ const events = [
   {
     id: 7,
     file: "Instituciones/CONALEPCHALCO-DILED3D.mp4",
-    name: "CONALEP CHALCO",
+    name: "CONALEP CHALCO", url: "",
     short: "Pláticas de Impresión 3D · Electromecánica",
     description:
       "Invitación por parte del CONALEP CHALCO para impartir pláticas sobre impresión 3D y sus aplicaciones dirigidas a los estudiantes de la carrera de Electromecánica.",
@@ -185,27 +185,18 @@ export default function Institutions() {
         <div style={{ display: "flex", alignItems: "center", gap: 12, marginBottom: 14 }}>
           <div style={{ width: 40, height: 1, background: "rgba(201,169,110,0.4)" }} />
           <span style={{ fontSize: 11, fontWeight: 700, textTransform: "uppercase", letterSpacing: "0.25em", color: "rgba(201,169,110,0.6)" }}>
-            Presencia Institucional
+            Colaboraciones Institucionales
           </span>
         </div>
         <div style={{ display: "flex", alignItems: "flex-end", justifyContent: "space-between", flexWrap: "wrap", gap: 16 }}>
           <div>
             <h2 style={{ fontFamily: "'Cormorant Garamond', serif", fontSize: "clamp(2rem, 4vw, 3rem)", fontWeight: 700, color: "white", margin: 0, lineHeight: 1 }}>
-              Instituciones que{" "}
-              <span style={{ color: "#c9a96e" }}>nos han invitado</span>
+              Eventos y{" "}
+              <span style={{ color: "#c9a96e" }}>Colaboraciones</span>
             </h2>
             <p style={{ color: "rgba(255,255,255,0.35)", fontSize: "0.95rem", marginTop: 10, maxWidth: 520, marginBottom: 0 }}>
               Llevando tecnología e innovación a instituciones educativas del Estado de México y más.
             </p>
-          </div>
-          <div style={{ display: "flex", alignItems: "baseline", gap: 6 }}>
-            <span style={{ fontFamily: "'Cormorant Garamond', serif", fontSize: "2.5rem", fontWeight: 700, color: "#c9a96e", lineHeight: 1 }}>
-              {String(current + 1).padStart(2, "0")}
-            </span>
-            <span style={{ color: "rgba(255,255,255,0.2)", fontSize: "1.5rem" }}>/</span>
-            <span style={{ fontFamily: "'Cormorant Garamond', serif", fontSize: "1.5rem", color: "rgba(255,255,255,0.25)", lineHeight: 1 }}>
-              {String(events.length).padStart(2, "0")}
-            </span>
           </div>
         </div>
       </div>
@@ -273,6 +264,34 @@ export default function Institutions() {
               <p style={{ color: "rgba(255,255,255,0.5)", fontSize: "0.95rem", lineHeight: 1.85, margin: 0 }}>
                 {ev.description}
               </p>
+              {ev.url && (
+                <a
+                  href={ev.url}
+                  target="_blank"
+                  rel="noreferrer"
+                  style={{
+                    display: "inline-flex", alignItems: "center", gap: 6,
+                    marginTop: 16,
+                    color: "#c9a96e",
+                    fontSize: "0.88rem",
+                    fontWeight: 600,
+                    textDecoration: "none",
+                    letterSpacing: "0.04em",
+                    borderBottom: "1px solid rgba(201,169,110,0.4)",
+                    paddingBottom: 2,
+                    transition: "all 0.2s",
+                  }}
+                  onMouseEnter={e => { e.currentTarget.style.color = "#e2c98a"; e.currentTarget.style.borderBottomColor = "#e2c98a"; }}
+                  onMouseLeave={e => { e.currentTarget.style.color = "#c9a96e"; e.currentTarget.style.borderBottomColor = "rgba(201,169,110,0.4)"; }}
+                >
+                  Conoce más de esta institución aquí
+                  <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round">
+                    <path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"/>
+                    <polyline points="15 3 21 3 21 9"/>
+                    <line x1="10" y1="14" x2="21" y2="3"/>
+                  </svg>
+                </a>
+              )}
             </div>
 
             {/* Controls */}

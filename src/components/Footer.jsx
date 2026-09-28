@@ -92,7 +92,7 @@ export default function Footer() {
           </h4>
           <div style={{ display: "flex", flexDirection: "column", gap: 12 }}>
             {[
-              { label: "WhatsApp", value: "55 3055 7923", href: "https://wa.me/5253055792" },
+              { label: "WhatsApp", value: "55 3055 7923", href: "https://w.app/diled3d" },
               { label: "Sede", value: "Av. Morelos No. 45, Tlamanalco de Velázquez, Edo. Méx." },
               { label: "Horario", value: "Lun–Vie · 24 horas" },
             ].map(item => (

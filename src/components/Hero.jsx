@@ -67,8 +67,8 @@ export default function Hero() {
 
               {/* Heading */}
               <h1 className="fade-up delay-1 font-display" style={{ fontWeight: 700, lineHeight: 1.05, marginBottom: 20, marginTop: 0 }}>
-                <span style={{ display: "block", color: "white", fontSize: "clamp(2.2rem, 4.5vw, 3.2rem)" }}>Impresiones</span>
-                <span className="gold-shimmer" style={{ display: "block", fontSize: "clamp(2.2rem, 4.5vw, 3.2rem)" }}>3D &amp; LED</span>
+                <span style={{ display: "block", color: "white", fontSize: "clamp(2.2rem, 4.5vw, 3.2rem)", lineHeight: 1.1 }}>Impresiones</span>
+                <span className="gold-shimmer" style={{ display: "block", fontSize: "clamp(2.2rem, 4.5vw, 3.2rem)", lineHeight: 1.2, paddingBottom: "0.1em" }}>3D Y LED</span>
                 <span style={{ display: "block", color: "rgba(255,255,255,0.4)", fontSize: "clamp(1.3rem, 2.5vw, 1.8rem)", fontWeight: 300, marginTop: 8 }}>
                   Desarrollo Tecnológico
                 </span>
@@ -118,10 +118,10 @@ export default function Hero() {
                   maxHeight: "180px",
                   borderRadius: "18px",
                   overflow: "hidden",
-                  border: "2px solid rgba(201,169,110,0.45)",
-                  boxShadow: "0 20px 60px rgba(0,0,0,0.7), 0 0 30px rgba(201,169,110,0.08)",
+                  border: "2px solid rgba(201,169,110,0.55)",
+                  boxShadow: "0 20px 60px rgba(0,0,0,0.7), 0 0 40px rgba(201,169,110,0.2)",
                   flexShrink: 0,
-                  display: "block",
+                  position: "relative",
                 }} className="pulse-gold">
                   <img
                     src="/logo-diled3d.jpeg"
@@ -133,6 +133,18 @@ export default function Hero() {
                       display: "block",
                     }}
                   />
+                  {/* Overlay dorado semitransparente */}
+                  <div style={{
+                    position: "absolute", inset: 0,
+                    background: "linear-gradient(135deg, rgba(201,169,110,0.25) 0%, rgba(11,23,40,0.2) 50%, rgba(201,169,110,0.15) 100%)",
+                    pointerEvents: "none",
+                  }} />
+                  {/* Viñeta azul marino en bordes */}
+                  <div style={{
+                    position: "absolute", inset: 0,
+                    background: "radial-gradient(ellipse at center, transparent 45%, rgba(11,23,40,0.6) 100%)",
+                    pointerEvents: "none",
+                  }} />
                 </div>
 
                 {/* Chip top-left */}

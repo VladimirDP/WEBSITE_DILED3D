@@ -7,7 +7,9 @@ const contactInfo = [
   {
     label: "EMAIL",
     value: "contacto@diled3d.com.mx",
+    value2: "jesus.morales@diled3d.com.mx",
     href: "mailto:contacto@diled3d.com.mx",
+    href2: "mailto:jesus.morales@diled3d.com.mx",
     icon: (
       <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#c9a96e" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round">
         <rect x="2" y="4" width="20" height="16" rx="2"/>
@@ -18,7 +20,7 @@ const contactInfo = [
   {
     label: "WHATSAPP",
     value: "55 3055 7923",
-    href: "https://wa.me/5253055792?text=Hola%2C%20me%20interesa%20cotizar%20un%20proyecto",
+    href: "https://w.app/diled3d",
     icon: (
       <svg width="18" height="18" viewBox="0 0 24 24" fill="#c9a96e">
         <path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347z"/>
@@ -67,19 +69,29 @@ const socials = [
       </svg>
     ),
   },
+  {
+    name: "Instagram",
+    href: "https://www.instagram.com/3ddiled/",
+    icon: (
+      <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#c9a96e" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+        <rect x="2" y="2" width="20" height="20" rx="5" ry="5"/>
+        <path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z"/>
+        <line x1="17.5" y1="6.5" x2="17.51" y2="6.5"/>
+      </svg>
+    ),
+  },
 ];
 
 const services = [
   "Pantallas LED",
   "Impresión 3D",
-  "Desarrollo Tecnológico",
-  "Diseño 3D",
-  "Consultoría",
+  "Cursos y Talleres",
+  "Visita a mi institución",
   "Otro",
 ];
 
 export default function Contact() {
-  const [form, setForm] = useState({ name: "", email: "", service: "", message: "" });
+  const [form, setForm] = useState({ name: "", email: "", phone: "", service: "", message: "" });
   const [sent, setSent] = useState(false);
   const [sending, setSending] = useState(false);
   const [error, setError] = useState("");
@@ -94,6 +106,7 @@ export default function Contact() {
       await addDoc(collection(db, "cotizaciones"), {
         nombre: form.name,
         correo: form.email,
+        telefono: form.phone || "No proporcionado",
         servicio: form.service || "No especificado",
         mensaje: form.message,
         fecha: serverTimestamp(),
@@ -120,10 +133,10 @@ export default function Contact() {
           <div style={{ width: 40, height: 1, background: "rgba(201,169,110,0.4)" }} />
         </div>
         <h2 style={{ fontFamily: "'Cormorant Garamond', serif", fontSize: "clamp(2rem, 4vw, 3rem)", fontWeight: 700, color: "white", margin: "0 0 10px", lineHeight: 1 }}>
-          Hablemos de tu <span style={{ color: "#c9a96e" }}>proyecto</span>
+          ¿Tienes un proyecto o <span style={{ color: "#c9a96e" }}>quieres que te visitemos?</span>
         </h2>
         <p style={{ color: "rgba(255,255,255,0.35)", fontSize: "0.95rem", margin: 0 }}>
-          Cuéntanos tu idea y te enviamos una cotización sin compromiso.
+          Ya seas cliente, empresa o institución educativa — cuéntanos y nos ponemos en contacto contigo.
         </p>
       </div>
 
@@ -133,7 +146,7 @@ export default function Contact() {
         {/* LEFT */}
         <div>
           <p style={{ color: "rgba(255,255,255,0.45)", fontSize: "0.95rem", lineHeight: 1.8, marginTop: 0, marginBottom: 32 }}>
-            Trabajamos con empresas, instituciones educativas y emprendedores para materializar ideas con tecnología de vanguardia.
+            Trabajamos con empresas, instituciones educativas y emprendedores para materializar ideas con tecnología de vanguardia. ¿Eres una institución y quieres que visitemos tu plantel? ¡Contáctanos, con gusto asistimos!
           </p>
           <div style={{ display: "flex", flexDirection: "column", gap: 20, marginBottom: 36 }}>
             {contactInfo.map((item) => (
@@ -144,11 +157,20 @@ export default function Contact() {
                 <div>
                   <div style={{ fontSize: 9, fontWeight: 700, letterSpacing: "0.2em", textTransform: "uppercase", color: "rgba(201,169,110,0.45)", marginBottom: 3 }}>{item.label}</div>
                   {item.href ? (
-                    <a href={item.href} target="_blank" rel="noreferrer" style={{ color: "rgba(255,255,255,0.75)", fontSize: "0.9rem", textDecoration: "none" }}
-                      onMouseEnter={e => e.target.style.color = "#c9a96e"}
-                      onMouseLeave={e => e.target.style.color = "rgba(255,255,255,0.75)"}>
-                      {item.value}
-                    </a>
+                    <div style={{ display: "flex", flexDirection: "column", gap: 3 }}>
+                      <a href={item.href} target="_blank" rel="noreferrer" style={{ color: "rgba(255,255,255,0.75)", fontSize: "0.9rem", textDecoration: "none" }}
+                        onMouseEnter={e => e.target.style.color = "#c9a96e"}
+                        onMouseLeave={e => e.target.style.color = "rgba(255,255,255,0.75)"}>
+                        {item.value}
+                      </a>
+                      {item.value2 && (
+                        <a href={item.href2} target="_blank" rel="noreferrer" style={{ color: "rgba(255,255,255,0.75)", fontSize: "0.9rem", textDecoration: "none" }}
+                          onMouseEnter={e => e.target.style.color = "#c9a96e"}
+                          onMouseLeave={e => e.target.style.color = "rgba(255,255,255,0.75)"}>
+                          {item.value2}
+                        </a>
+                      )}
+                    </div>
                   ) : (
                     <span style={{ color: "rgba(255,255,255,0.75)", fontSize: "0.9rem" }}>{item.value}</span>
                   )}
@@ -178,7 +200,7 @@ export default function Contact() {
               <div style={{ fontSize: 48, marginBottom: 16 }}>✅</div>
               <h3 style={{ fontFamily: "'Cormorant Garamond', serif", fontSize: "1.8rem", color: "white", margin: "0 0 10px" }}>¡Mensaje enviado!</h3>
               <p style={{ color: "rgba(255,255,255,0.4)", fontSize: "0.95rem", margin: "0 0 24px" }}>Nos pondremos en contacto contigo pronto.</p>
-              <button onClick={() => { setSent(false); setForm({ name: "", email: "", service: "", message: "" }); }}
+              <button onClick={() => { setSent(false); setForm({ name: "", email: "", phone: "", service: "", message: "" }); }}
                 style={{ padding: "10px 24px", background: "rgba(201,169,110,0.1)", border: "1px solid rgba(201,169,110,0.3)", color: "#c9a96e", borderRadius: 10, cursor: "pointer", fontSize: 14 }}>
                 Enviar otro mensaje
               </button>
@@ -195,6 +217,14 @@ export default function Contact() {
                       onBlur={e => e.target.style.borderColor = "rgba(201,169,110,0.18)"} />
                   </div>
                 ))}
+              </div>
+              {/* Campo teléfono/WhatsApp */}
+              <div>
+                <label style={{ display: "block", fontSize: 9, fontWeight: 700, letterSpacing: "0.2em", textTransform: "uppercase", color: "rgba(201,169,110,0.55)", marginBottom: 7 }}>TELÉFONO / WHATSAPP</label>
+                <input type="tel" name="phone" value={form.phone} onChange={handleChange} placeholder="Ej. 55 1234 5678"
+                  style={{ width: "100%", boxSizing: "border-box", padding: "11px 14px", background: "rgba(255,255,255,0.04)", border: "1px solid rgba(201,169,110,0.18)", borderRadius: 10, color: "white", fontSize: "0.9rem", outline: "none" }}
+                  onFocus={e => e.target.style.borderColor = "rgba(201,169,110,0.55)"}
+                  onBlur={e => e.target.style.borderColor = "rgba(201,169,110,0.18)"} />
               </div>
               <div>
                 <label style={{ display: "block", fontSize: 9, fontWeight: 700, letterSpacing: "0.2em", textTransform: "uppercase", color: "rgba(201,169,110,0.55)", marginBottom: 7 }}>SERVICIO DE INTERÉS</label>

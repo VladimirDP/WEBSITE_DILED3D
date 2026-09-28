@@ -2,14 +2,16 @@
 import React, { useState } from "react";
 
 const photos = [
-  { file: "Portafolio/DILED3D1.jpg", size: "tall" },
-  { file: "Portafolio/DILED3D2.jpg", size: "wide" },
-  { file: "Portafolio/DILED3D3.jpg", size: "normal" },
-  { file: "Portafolio/DILED3D4.jpg", size: "normal" },
-  { file: "Portafolio/DILED3D5.jpg", size: "wide" },
-  { file: "Portafolio/DILED3D6.jpg", size: "tall" },
-  { file: "Portafolio/DILED3D7.jpg", size: "wide" },
-  { file: "Portafolio/DILED3D8.jpg", size: "normal" },
+  { file: "Portafolio/DILED3D1.jpg",  size: "tall" },   // col1 row1-2
+  { file: "Portafolio/DILED3D2.jpg",  size: "wide" },   // col2-3 row1
+  { file: "Portafolio/DILED3D3.jpg",  size: "normal" }, // col4 row1
+  { file: "Portafolio/DILED3D4.jpg",  size: "normal" }, // col2 row2
+  { file: "Portafolio/DILED3D5.jpg",  size: "normal" }, // col3 row2
+  { file: "Portafolio/DILED3D6.jpg",  size: "normal" }, // col4 row2
+  { file: "Portafolio/DILED3D7.jpg",  size: "wide" },   // col1-2 row3
+  { file: "Portafolio/DILED3D8.jpg",  size: "wide" },   // col3-4 row3
+  { file: "Portafolio/DILED3D9.jpg",  size: "wide" },   // col1-2 row4
+  { file: "Portafolio/DILED3D10.jpg", size: "wide" },   // col3-4 row4
 ];
 
 const sizeMap = {
@@ -117,7 +119,7 @@ export default function Portfolio() {
         boxSizing: "border-box",
         display: "grid",
         gridTemplateColumns: "repeat(4, 1fr)",
-        gridTemplateRows: "repeat(3, 220px)",
+        gridTemplateRows: "repeat(4, 220px)",
         gap: "0.85rem",
         gridAutoFlow: "dense",
       }}>

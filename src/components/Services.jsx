@@ -203,7 +203,7 @@ export default function Services() {
         <div style={{ display: "flex", alignItems: "flex-end", justifyContent: "space-between", flexWrap: "wrap", gap: 12 }}>
           <div>
             <h2 style={{ fontFamily: "'Cormorant Garamond', serif", fontSize: "clamp(2rem, 4vw, 3rem)", fontWeight: 700, color: "white", margin: 0, lineHeight: 1 }}>
-              Nuestros <span style={{ color: "#c9a96e" }}>servicios</span>
+              Servicios
             </h2>
             <p style={{ color: "rgba(255,255,255,0.35)", fontSize: "0.95rem", marginTop: 10, marginBottom: 0 }}>
               Pasa el cursor sobre cada card para ver el trabajo en acción.
@@ -241,7 +241,7 @@ export default function Services() {
           letterSpacing: "0.05em",
           boxShadow: "0 8px 24px rgba(201,169,110,0.25)",
         }}>
-          Cotizar un proyecto →
+          Cotizar un proyecto
         </a>
       </div>
 
