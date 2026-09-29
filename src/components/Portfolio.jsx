@@ -26,6 +26,7 @@ function PhotoCard({ item, onClick }) {
   return (
     <div
       onClick={() => onClick(item)}
+      data-size={item.size}
       onMouseEnter={() => setHovered(true)}
       onMouseLeave={() => setHovered(false)}
       style={{
@@ -112,7 +113,7 @@ export default function Portfolio() {
       </div>
 
       {/* Mosaic */}
-      <div style={{
+      <div className="portfolio-grid" style={{
         maxWidth: 1200,
         margin: "0 auto",
         padding: "0 2rem",
@@ -136,7 +137,7 @@ export default function Portfolio() {
             position: "fixed", inset: 0, zIndex: 1000,
             background: "rgba(0,0,0,0.9)",
             display: "flex", alignItems: "center", justifyContent: "center",
-            padding: "2rem",
+            padding: "1rem",
             backdropFilter: "blur(12px)",
           }}
         >

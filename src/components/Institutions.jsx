@@ -203,7 +203,7 @@ export default function Institutions() {
 
       {/* Carousel — más gap entre video e info */}
       <div style={{ maxWidth: 1200, margin: "0 auto", padding: "0 2rem", boxSizing: "border-box" }}>
-        <div style={{
+        <div className="inst-grid" style={{
           display: "grid",
           gridTemplateColumns: "1fr 1fr",
           gap: "4rem",          /* ← separación aumentada */
@@ -233,7 +233,7 @@ export default function Institutions() {
           </div>
 
           {/* Info — padding izquierdo extra para separarlo visualmente */}
-          <div style={{
+          <div className="inst-info" style={{
             display: "flex",
             flexDirection: "column",
             justifyContent: "space-between",

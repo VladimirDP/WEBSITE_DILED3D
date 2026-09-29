@@ -45,6 +45,7 @@ function ServiceCard({ item }) {
     <div
       onMouseEnter={handleEnter}
       onMouseLeave={handleLeave}
+      onClick={() => { if (!hovered) handleEnter(); else handleLeave(); }}
       style={{
         position: "relative",
         borderRadius: 16,
@@ -206,7 +207,7 @@ export default function Services() {
               Servicios
             </h2>
             <p style={{ color: "rgba(255,255,255,0.35)", fontSize: "0.95rem", marginTop: 10, marginBottom: 0 }}>
-              Pasa el cursor sobre cada card para ver el trabajo en acción.
+              Pasa el cursor (o toca) cada card para ver el trabajo en acción.
             </p>
           </div>
           <span style={{ fontSize: 12, color: "rgba(201,169,110,0.4)", letterSpacing: "0.1em" }}>
@@ -216,7 +217,7 @@ export default function Services() {
       </div>
 
       {/* Grid */}
-      <div style={{
+      <div id="servicios-grid" style={{
         maxWidth: 1200,
         margin: "0 auto",
         padding: "0 2rem",

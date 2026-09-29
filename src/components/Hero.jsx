@@ -40,7 +40,7 @@ export default function Hero() {
         <div style={{ position: "absolute", top: "50%", right: "20%", transform: "translateY(-50%)", width: 450, height: 450, borderRadius: "50%", background: "rgba(201,169,110,0.05)", filter: "blur(90px)", pointerEvents: "none" }} />
 
         {/* Main wrapper */}
-        <div style={{
+        <div className="hero-wrap" style={{
           position: "relative",
           zIndex: 10,
           width: "100%",
@@ -90,7 +90,7 @@ export default function Hero() {
               </div>
 
               {/* Stats */}
-              <div className="fade-up delay-4" style={{ display: "flex", gap: 36, borderTop: "1px solid rgba(201,169,110,0.15)", paddingTop: 24 }}>
+              <div className="fade-up delay-4 hero-stats" style={{ display: "flex", gap: 36, borderTop: "1px solid rgba(201,169,110,0.15)", paddingTop: 24 }}>
                 {[{ n: "+50", label: "Proyectos" }, { n: "+10", label: "Instituciones" }, { n: "+5", label: "Años de experiencia" }].map((s) => (
                   <div key={s.label}>
                     <div className="font-display" style={{ fontSize: "1.8rem", fontWeight: 700, color: "#c9a96e" }}>{s.n}</div>
@@ -148,13 +148,13 @@ export default function Hero() {
                 </div>
 
                 {/* Chip top-left */}
-                <div style={{ position: "absolute", top: -6, left: -115, background: "#0f1e38", border: "1px solid rgba(201,169,110,0.3)", borderRadius: 10, padding: "7px 12px", boxShadow: "0 8px 20px rgba(0,0,0,0.5)", whiteSpace: "nowrap" }}>
+                <div className="hero-chip hero-chip-left" style={{ position: "absolute", top: -6, left: -115, background: "#0f1e38", border: "1px solid rgba(201,169,110,0.3)", borderRadius: 10, padding: "7px 12px", boxShadow: "0 8px 20px rgba(0,0,0,0.5)", whiteSpace: "nowrap" }}>
                   <div style={{ fontSize: 8, color: "rgba(201,169,110,0.4)", textTransform: "uppercase", letterSpacing: "0.2em" }}>Especialidad</div>
                   <div style={{ fontSize: 12, fontWeight: 700, color: "#c9a96e" }}>Pantallas LED</div>
                 </div>
 
                 {/* Chip bottom-right */}
-                <div style={{ position: "absolute", bottom: -6, right: -110, background: "#0f1e38", border: "1px solid rgba(201,169,110,0.3)", borderRadius: 10, padding: "7px 12px", boxShadow: "0 8px 20px rgba(0,0,0,0.5)", whiteSpace: "nowrap" }}>
+                <div className="hero-chip hero-chip-right" style={{ position: "absolute", bottom: -6, right: -110, background: "#0f1e38", border: "1px solid rgba(201,169,110,0.3)", borderRadius: 10, padding: "7px 12px", boxShadow: "0 8px 20px rgba(0,0,0,0.5)", whiteSpace: "nowrap" }}>
                   <div style={{ fontSize: 8, color: "rgba(201,169,110,0.4)", textTransform: "uppercase", letterSpacing: "0.2em" }}>Tecnología</div>
                   <div style={{ fontSize: 12, fontWeight: 700, color: "#c9a96e" }}>Impresión 3D</div>
                 </div>

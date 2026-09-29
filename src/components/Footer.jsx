@@ -6,7 +6,7 @@ export default function Footer() {
     <footer style={{ backgroundColor: "#071020", borderTop: "1px solid rgba(201,169,110,0.15)" }}>
 
       {/* Main grid */}
-      <div style={{ maxWidth: 1200, margin: "0 auto", padding: "3.5rem 2rem 2.5rem", boxSizing: "border-box", display: "grid", gridTemplateColumns: "2fr 1fr 1fr 1fr", gap: "2.5rem" }}>
+      <div className="footer-grid" style={{ maxWidth: 1200, margin: "0 auto", padding: "3.5rem 2rem 2.5rem", boxSizing: "border-box", display: "grid", gridTemplateColumns: "2fr 1fr 1fr 1fr", gap: "2.5rem" }}>
 
         {/* Brand */}
         <div>

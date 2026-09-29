@@ -141,7 +141,7 @@ export default function Contact() {
       </div>
 
       {/* Grid */}
-      <div style={{ maxWidth: 1200, margin: "0 auto", padding: "0 2rem", boxSizing: "border-box", display: "grid", gridTemplateColumns: "1fr 1.6fr", gap: "4rem", alignItems: "start" }}>
+      <div className="contact-grid" style={{ maxWidth: 1200, margin: "0 auto", padding: "0 2rem", boxSizing: "border-box", display: "grid", gridTemplateColumns: "1fr 1.6fr", gap: "4rem", alignItems: "start" }}>
 
         {/* LEFT */}
         <div>
@@ -194,7 +194,7 @@ export default function Contact() {
         </div>
 
         {/* RIGHT — Formulario */}
-        <div style={{ background: "rgba(255,255,255,0.03)", border: "1px solid rgba(201,169,110,0.15)", borderRadius: 20, padding: "2.5rem", boxShadow: "0 20px 60px rgba(0,0,0,0.3)" }}>
+        <div className="contact-form" style={{ background: "rgba(255,255,255,0.03)", border: "1px solid rgba(201,169,110,0.15)", borderRadius: 20, padding: "2.5rem", boxShadow: "0 20px 60px rgba(0,0,0,0.3)" }}>
           {sent ? (
             <div style={{ textAlign: "center", padding: "2rem 0" }}>
               <div style={{ fontSize: 48, marginBottom: 16 }}>✅</div>
@@ -207,7 +207,7 @@ export default function Contact() {
             </div>
           ) : (
             <div style={{ display: "flex", flexDirection: "column", gap: 20 }}>
-              <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: 16 }}>
+              <div className="form-row" style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: 16 }}>
                 {[{ name: "name", label: "NOMBRE", placeholder: "Tu nombre completo", type: "text" }, { name: "email", label: "CORREO", placeholder: "tu@correo.com", type: "email" }].map((f) => (
                   <div key={f.name}>
                     <label style={{ display: "block", fontSize: 9, fontWeight: 700, letterSpacing: "0.2em", textTransform: "uppercase", color: "rgba(201,169,110,0.55)", marginBottom: 7 }}>{f.label}</label>
@@ -229,7 +229,7 @@ export default function Contact() {
               <div>
                 <label style={{ display: "block", fontSize: 9, fontWeight: 700, letterSpacing: "0.2em", textTransform: "uppercase", color: "rgba(201,169,110,0.55)", marginBottom: 7 }}>SERVICIO DE INTERÉS</label>
                 <select name="service" value={form.service} onChange={handleChange}
-                  style={{ width: "100%", padding: "11px 14px", background: "#0f1e38", border: "1px solid rgba(201,169,110,0.18)", borderRadius: 10, color: form.service ? "white" : "rgba(255,255,255,0.3)", fontSize: "0.9rem", outline: "none", cursor: "pointer" }}
+                  style={{ width: "100%", boxSizing: "border-box", padding: "11px 14px", background: "#0f1e38", border: "1px solid rgba(201,169,110,0.18)", borderRadius: 10, color: form.service ? "white" : "rgba(255,255,255,0.3)", fontSize: "0.9rem", outline: "none", cursor: "pointer" }}
                   onFocus={e => e.target.style.borderColor = "rgba(201,169,110,0.55)"}
                   onBlur={e => e.target.style.borderColor = "rgba(201,169,110,0.18)"}>
                   <option value="" disabled>Selecciona un servicio</option>

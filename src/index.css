@@ -210,3 +210,147 @@ body {
     background: var(--gold-dim);
     border-radius: 3px;
 }
+
+/* ═══════════════════════════════════════════
+   RESPONSIVE — evita desbordamiento horizontal
+   ═══════════════════════════════════════════ */
+
+*,
+*::before,
+*::after {
+    box-sizing: border-box;
+}
+
+html {
+    -webkit-text-size-adjust: 100%;
+    overflow-x: hidden;
+}
+
+body {
+    margin: 0;
+    max-width: 100%;
+    overflow-x: hidden;
+}
+
+img,
+video,
+svg {
+    max-width: 100%;
+}
+
+section[id] {
+    scroll-margin-top: 64px;
+}
+
+
+/* ── Tablet (≤ 1024px) ── */
+
+@media (max-width: 1024px) {
+    #servicios-grid {
+        grid-template-columns: repeat(3, 1fr) !important;
+    }
+    .footer-grid {
+        grid-template-columns: 1fr 1fr !important;
+    }
+    .inst-grid,
+    .contact-grid {
+        gap: 2rem !important;
+    }
+}
+
+
+/* ── Tablet chico (≤ 900px) ── */
+
+@media (max-width: 900px) {
+    .inst-grid,
+    .contact-grid {
+        grid-template-columns: 1fr !important;
+    }
+    .inst-info {
+        padding-left: 0 !important;
+        min-height: 0 !important;
+        gap: 1.5rem;
+    }
+    /* Portafolio: 2 columnas */
+    .portfolio-grid {
+        grid-template-columns: repeat(2, 1fr) !important;
+        grid-template-rows: none !important;
+        grid-auto-rows: 170px;
+    }
+    .portfolio-grid>div {
+        grid-column: span 1 !important;
+        grid-row: span 1 !important;
+    }
+    .portfolio-grid>div[data-size="wide"] {
+        grid-column: span 2 !important;
+    }
+    .portfolio-grid>div[data-size="tall"] {
+        grid-row: span 2 !important;
+    }
+}
+
+
+/* ── Celular (≤ 640px) ── */
+
+@media (max-width: 640px) {
+    section {
+        padding-top: 4rem !important;
+        padding-bottom: 0 !important;
+    }
+    #inicio {
+        padding-top: 0 !important;
+        padding-bottom: 3rem !important;
+    }
+    .hero-wrap,
+    #inicio>div:nth-of-type(3) {
+        padding-left: 1.25rem !important;
+        padding-right: 1.25rem !important;
+    }
+    section [style*="padding: 0px 2rem"],
+    section [style*="padding: 0 2rem"] {
+        padding-left: 1.25rem !important;
+        padding-right: 1.25rem !important;
+    }
+    #servicios-grid {
+        grid-template-columns: repeat(2, 1fr) !important;
+        gap: 0.75rem !important;
+    }
+    /* Chips del logo dentro del ancho de pantalla */
+    .hero-chip-left {
+        left: -40px !important;
+        top: -16px !important;
+    }
+    .hero-chip-right {
+        right: -40px !important;
+        bottom: -16px !important;
+    }
+    .hero-stats {
+        flex-wrap: wrap;
+        gap: 1.25rem 1.75rem !important;
+    }
+    .hero-grid {
+        gap: 2.5rem !important;
+    }
+    .contact-form {
+        padding: 1.25rem !important;
+    }
+    .form-row {
+        grid-template-columns: 1fr !important;
+    }
+    .footer-grid {
+        grid-template-columns: 1fr !important;
+        gap: 2rem !important;
+        padding-left: 1.25rem !important;
+        padding-right: 1.25rem !important;
+    }
+    .portfolio-grid {
+        grid-auto-rows: 150px;
+        gap: 0.6rem !important;
+    }
+    /* Inputs a 16px para que iOS no haga zoom al enfocar */
+    input,
+    select,
+    textarea {
+        font-size: 16px !important;
+    }
+}
