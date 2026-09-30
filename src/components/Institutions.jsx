@@ -191,8 +191,7 @@ export default function Institutions() {
         <div style={{ display: "flex", alignItems: "flex-end", justifyContent: "space-between", flexWrap: "wrap", gap: 16 }}>
           <div>
             <h2 style={{ fontFamily: "'Cormorant Garamond', serif", fontSize: "clamp(2rem, 4vw, 3rem)", fontWeight: 700, color: "white", margin: 0, lineHeight: 1 }}>
-              Eventos y{" "}
-              <span style={{ color: "#c9a96e" }}>Colaboraciones</span>
+              Colaboraciones{" "}
             </h2>
             <p style={{ color: "rgba(255,255,255,0.35)", fontSize: "0.95rem", marginTop: 10, maxWidth: 520, marginBottom: 0 }}>
               Llevando tecnología e innovación a instituciones educativas del Estado de México y más.

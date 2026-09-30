@@ -185,7 +185,7 @@ export default function Contact() {
           ¿Tienes un proyecto o <span style={{ color: "#c9a96e" }}>quieres que te visitemos?</span>
         </h2>
         <p style={{ color: "rgba(255,255,255,0.35)", fontSize: "0.95rem", margin: 0 }}>
-          Ya seas cliente, empresa o institución educativa — cuéntanos y nos ponemos en contacto contigo.
+          Queremos hacer equipo contigo. Cuentanos tu proyecto y empecemos a trabajar.
         </p>
       </div>
 
@@ -195,7 +195,7 @@ export default function Contact() {
         {/* LEFT */}
         <div>
           <p style={{ color: "rgba(255,255,255,0.45)", fontSize: "0.95rem", lineHeight: 1.8, marginTop: 0, marginBottom: 32 }}>
-            Trabajamos con empresas, instituciones educativas y emprendedores para materializar ideas con tecnología de vanguardia. ¿Eres una institución y quieres que visitemos tu plantel? ¡Contáctanos, con gusto asistimos!
+            Atendemos solicitudes de particulares, corporativos y centros educativos. Escríbenos hoy mismo y un asesor te atenderá personalmente.
           </p>
           <div style={{ display: "flex", flexDirection: "column", gap: 20, marginBottom: 36 }}>
             {contactInfo.map((item) => (

@@ -107,9 +107,6 @@ export default function Portfolio() {
         }}>
           Bienvenido a <span style={{ color: "#c9a96e" }}>DILED 3D</span>
         </h2>
-        <p style={{ color: "rgba(255,255,255,0.35)", fontSize: "0.95rem", marginTop: 10, marginBottom: 0 }}>
-          Haz clic en cualquier imagen para verla en detalle.
-        </p>
       </div>
 
       {/* Mosaic */}
