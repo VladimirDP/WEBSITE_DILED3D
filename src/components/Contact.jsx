@@ -1,5 +1,5 @@
 // src/components/Contact.jsx
-import React, { useState } from "react";
+import React, { useState, useRef } from "react";
 import { db } from "../firebase";
 import { collection, addDoc, serverTimestamp } from "firebase/firestore";
 
@@ -96,21 +96,71 @@ export default function Contact() {
   const [sending, setSending] = useState(false);
   const [error, setError] = useState("");
 
+  // ── Protección antispam ──────────────────────────────
+  const loadedAt = useRef(Date.now());   // cuándo se cargó el formulario
+  const honeypot = useRef(null);         // campo trampa para bots
+
   const handleChange = (e) => setForm({ ...form, [e.target.name]: e.target.value });
 
+  // Límite por visitante: máx. 3 envíos por hora y 60 s entre envíos
+  const checkRateLimit = () => {
+    try {
+      const now = Date.now();
+      const hour = 60 * 60 * 1000;
+      const list = JSON.parse(localStorage.getItem("diled_sends") || "[]").filter((t) => now - t < hour);
+      if (list.length && now - list[list.length - 1] < 60 * 1000) return "Espera un momento antes de enviar otro mensaje.";
+      if (list.length >= 3) return "Has alcanzado el límite de mensajes por ahora. Escríbenos por WhatsApp.";
+    } catch { /* si localStorage no está disponible, se omite */ }
+    return "";
+  };
+  const registerSend = () => {
+    try {
+      const now = Date.now();
+      const hour = 60 * 60 * 1000;
+      const list = JSON.parse(localStorage.getItem("diled_sends") || "[]").filter((t) => now - t < hour);
+      list.push(now);
+      localStorage.setItem("diled_sends", JSON.stringify(list));
+    } catch { /* ignorar */ }
+  };
+
   const handleSubmit = async () => {
-    if (!form.name || !form.email || !form.message) return;
+    const name = form.name.trim();
+    const email = form.email.trim();
+    const phone = form.phone.trim();
+    const message = form.message.trim();
+    if (!name || !email || !message) return;
+
+    // 1) Bot: rellenó el campo oculto → fingimos éxito y no enviamos nada
+    if (honeypot.current && honeypot.current.value) { setSent(true); return; }
+
+    // 2) Demasiado rápido para ser humano (menos de 4 s desde que cargó)
+    if (Date.now() - loadedAt.current < 4000) {
+      setError("Por favor, revisa tus datos e intenta de nuevo.");
+      return;
+    }
+
+    // 3) Correo con formato válido
+    if (!/^[^\s@]+@[^\s@]+\.[^\s@]{2,}$/.test(email)) {
+      setError("Escribe un correo válido.");
+      return;
+    }
+
+    // 4) Límite de envíos por visitante
+    const limitMsg = checkRateLimit();
+    if (limitMsg) { setError(limitMsg); return; }
+
     setSending(true);
     setError("");
     try {
       await addDoc(collection(db, "cotizaciones"), {
-        nombre: form.name,
-        correo: form.email,
-        telefono: form.phone || "No proporcionado",
+        nombre: name,
+        correo: email,
+        telefono: phone || "No proporcionado",
         servicio: form.service || "No especificado",
-        mensaje: form.message,
+        mensaje: message,
         fecha: serverTimestamp(),
       });
+      registerSend();
       setSent(true);
     } catch (err) {
       setError("Hubo un error al enviar. Intenta de nuevo.");
@@ -211,7 +261,7 @@ export default function Contact() {
                 {[{ name: "name", label: "NOMBRE", placeholder: "Tu nombre completo", type: "text" }, { name: "email", label: "CORREO", placeholder: "tu@correo.com", type: "email" }].map((f) => (
                   <div key={f.name}>
                     <label style={{ display: "block", fontSize: 9, fontWeight: 700, letterSpacing: "0.2em", textTransform: "uppercase", color: "rgba(201,169,110,0.55)", marginBottom: 7 }}>{f.label}</label>
-                    <input type={f.type} name={f.name} value={form[f.name]} onChange={handleChange} placeholder={f.placeholder}
+                    <input type={f.type} name={f.name} value={form[f.name]} onChange={handleChange} placeholder={f.placeholder} maxLength={f.name === "email" ? 150 : 100} autoComplete={f.name === "email" ? "email" : "name"}
                       style={{ width: "100%", boxSizing: "border-box", padding: "11px 14px", background: "rgba(255,255,255,0.04)", border: "1px solid rgba(201,169,110,0.18)", borderRadius: 10, color: "white", fontSize: "0.9rem", outline: "none" }}
                       onFocus={e => e.target.style.borderColor = "rgba(201,169,110,0.55)"}
                       onBlur={e => e.target.style.borderColor = "rgba(201,169,110,0.18)"} />
@@ -221,7 +271,7 @@ export default function Contact() {
               {/* Campo teléfono/WhatsApp */}
               <div>
                 <label style={{ display: "block", fontSize: 9, fontWeight: 700, letterSpacing: "0.2em", textTransform: "uppercase", color: "rgba(201,169,110,0.55)", marginBottom: 7 }}>TELÉFONO / WHATSAPP</label>
-                <input type="tel" name="phone" value={form.phone} onChange={handleChange} placeholder="Ej. 55 1234 5678"
+                <input type="tel" name="phone" value={form.phone} onChange={handleChange} placeholder="Ej. 55 1234 5678" maxLength={50}
                   style={{ width: "100%", boxSizing: "border-box", padding: "11px 14px", background: "rgba(255,255,255,0.04)", border: "1px solid rgba(201,169,110,0.18)", borderRadius: 10, color: "white", fontSize: "0.9rem", outline: "none" }}
                   onFocus={e => e.target.style.borderColor = "rgba(201,169,110,0.55)"}
                   onBlur={e => e.target.style.borderColor = "rgba(201,169,110,0.18)"} />
@@ -238,11 +288,14 @@ export default function Contact() {
               </div>
               <div>
                 <label style={{ display: "block", fontSize: 9, fontWeight: 700, letterSpacing: "0.2em", textTransform: "uppercase", color: "rgba(201,169,110,0.55)", marginBottom: 7 }}>MENSAJE</label>
-                <textarea name="message" value={form.message} onChange={handleChange} placeholder="Describe tu proyecto o consulta..." rows={5}
+                <textarea name="message" value={form.message} onChange={handleChange} placeholder="Describe tu proyecto o consulta..." rows={5} maxLength={2000}
                   style={{ width: "100%", boxSizing: "border-box", padding: "11px 14px", background: "rgba(255,255,255,0.04)", border: "1px solid rgba(201,169,110,0.18)", borderRadius: 10, color: "white", fontSize: "0.9rem", outline: "none", resize: "vertical", fontFamily: "inherit" }}
                   onFocus={e => e.target.style.borderColor = "rgba(201,169,110,0.55)"}
                   onBlur={e => e.target.style.borderColor = "rgba(201,169,110,0.18)"} />
               </div>
+              {/* Campo trampa: invisible para personas, los bots lo llenan */}
+              <input ref={honeypot} type="text" name="website" tabIndex={-1} autoComplete="off" aria-hidden="true"
+                style={{ position: "absolute", left: "-9999px", width: 1, height: 1, opacity: 0, pointerEvents: "none" }} />
               {error && <p style={{ color: "#ff6b6b", fontSize: 13, margin: 0 }}>{error}</p>}
               <button onClick={handleSubmit} disabled={sending || !form.name || !form.email || !form.message}
                 style={{ padding: "14px", background: sending || !form.name || !form.email || !form.message ? "rgba(201,169,110,0.3)" : "#c9a96e", color: "#0b1728", fontWeight: 700, fontSize: 15, border: "none", borderRadius: 12, cursor: sending || !form.name || !form.email || !form.message ? "not-allowed" : "pointer", letterSpacing: "0.05em", transition: "all 0.2s", display: "flex", alignItems: "center", justifyContent: "center", gap: 8 }}>
