@@ -24,7 +24,7 @@ export default function Footer() {
             </div>
           </div>
           <p style={{ color: "rgba(255,255,255,0.28)", fontSize: "0.85rem", lineHeight: 1.75, maxWidth: 280, margin: "0 0 20px" }}>
-            Empresa especializada en impresión 3D, pantallas LED y desarrollo tecnológico. Llevando la Industria 4.0 al Estado de México.
+            Empresa especializada en impresión 3D, desarrollo tecnológico, cursos y talleres. Llevando la Industria 4.0 al Estado de México.
           </p>
           {/* Socials */}
           <div style={{ display: "flex", gap: 10 }}>
@@ -55,7 +55,7 @@ export default function Footer() {
             Servicios
           </h4>
           <ul style={{ listStyle: "none", padding: 0, margin: 0, display: "flex", flexDirection: "column", gap: 10 }}>
-            {["Impresión 3D", "Pantallas LED", "Escaneo 3D", "Diseño 3D", "Cursos y Talleres", "Desarrollo Tecnológico"].map(s => (
+            {["Impresión 3D", "Escaneo 3D", "Diseño 3D", "Cursos y Talleres", "Desarrollo Tecnológico"].map(s => (
               <li key={s}>
                 <a href="#servicios" style={{ color: "rgba(255,255,255,0.3)", fontSize: "0.85rem", textDecoration: "none", transition: "color 0.2s" }}
                   onMouseEnter={e => e.target.style.color = "#c9a96e"}

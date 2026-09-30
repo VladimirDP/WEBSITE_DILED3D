@@ -211,6 +211,7 @@ body {
     border-radius: 3px;
 }
 
+
 /* ═══════════════════════════════════════════
    RESPONSIVE — evita desbordamiento horizontal
    ═══════════════════════════════════════════ */
@@ -345,7 +346,11 @@ section[id] {
     }
     .portfolio-grid {
         grid-auto-rows: 150px;
+        grid-auto-flow: dense;
         gap: 0.6rem !important;
+    }
+    .portfolio-grid>div {
+        min-height: 0 !important;
     }
     /* Inputs a 16px para que iOS no haga zoom al enfocar */
     input,

@@ -68,7 +68,7 @@ export default function Hero() {
               {/* Heading */}
               <h1 className="fade-up delay-1 font-display" style={{ fontWeight: 700, lineHeight: 1.05, marginBottom: 20, marginTop: 0 }}>
                 <span style={{ display: "block", color: "white", fontSize: "clamp(2.2rem, 4.5vw, 3.2rem)", lineHeight: 1.1 }}>Impresiones</span>
-                <span className="gold-shimmer" style={{ display: "block", fontSize: "clamp(2.2rem, 4.5vw, 3.2rem)", lineHeight: 1.2, paddingBottom: "0.1em" }}>3D Y LED</span>
+                <span className="gold-shimmer" style={{ display: "block", fontSize: "clamp(2.2rem, 4.5vw, 3.2rem)", lineHeight: 1.2, paddingBottom: "0.1em" }}>3D</span>
                 <span style={{ display: "block", color: "rgba(255,255,255,0.4)", fontSize: "clamp(1.3rem, 2.5vw, 1.8rem)", fontWeight: 300, marginTop: 8 }}>
                   Desarrollo Tecnológico
                 </span>
@@ -122,7 +122,7 @@ export default function Hero() {
                   boxShadow: "0 20px 60px rgba(0,0,0,0.7), 0 0 40px rgba(201,169,110,0.2)",
                   flexShrink: 0,
                   position: "relative",
-                }} className="pulse-gold">
+                }}>
                   <img
                     src="/logo-diled3d.jpeg"
                     alt="DILED 3D"
@@ -149,8 +149,8 @@ export default function Hero() {
 
                 {/* Chip top-left */}
                 <div className="hero-chip hero-chip-left" style={{ position: "absolute", top: -6, left: -115, background: "#0f1e38", border: "1px solid rgba(201,169,110,0.3)", borderRadius: 10, padding: "7px 12px", boxShadow: "0 8px 20px rgba(0,0,0,0.5)", whiteSpace: "nowrap" }}>
-                  <div style={{ fontSize: 8, color: "rgba(201,169,110,0.4)", textTransform: "uppercase", letterSpacing: "0.2em" }}>Especialidad</div>
-                  <div style={{ fontSize: 12, fontWeight: 700, color: "#c9a96e" }}>Pantallas LED</div>
+                  <div style={{ fontSize: 8, color: "rgba(201,169,110,0.4)", textTransform: "uppercase", letterSpacing: "0.2em" }}>Formacion</div>
+                  <div style={{ fontSize: 12, fontWeight: 700, color: "#c9a96e" }}>Cursos y Talleres</div>
                 </div>
 
                 {/* Chip bottom-right */}

@@ -83,7 +83,6 @@ const socials = [
 ];
 
 const services = [
-  "Pantallas LED",
   "Impresión 3D",
   "Cursos y Talleres",
   "Visita a mi institución",
