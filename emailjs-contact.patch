@@ -1,0 +1,45 @@
+diff --git a/src/components/Contact.jsx b/src/components/Contact.jsx
+index 77d6ec2..d306b7c 100644
+--- a/src/components/Contact.jsx
++++ b/src/components/Contact.jsx
+@@ -2,6 +2,12 @@
+ import React, { useState, useRef } from "react";
+ import { db } from "../firebase";
+ import { collection, addDoc, serverTimestamp } from "firebase/firestore";
++import emailjs from "@emailjs/browser";
++
++// Datos públicos de EmailJS (vienen del archivo .env)
++const EMAILJS_SERVICE_ID = import.meta.env.VITE_EMAILJS_SERVICE_ID;
++const EMAILJS_TEMPLATE_ID = import.meta.env.VITE_EMAILJS_TEMPLATE_ID;
++const EMAILJS_PUBLIC_KEY = import.meta.env.VITE_EMAILJS_PUBLIC_KEY;
+ 
+ const contactInfo = [
+   {
+@@ -160,6 +166,27 @@ export default function Contact() {
+         fecha: serverTimestamp(),
+       });
+       registerSend();
++
++      // Aviso por correo a la empresa. Si falla, la cotización ya quedó guardada
++      // en Firestore y el cliente igualmente ve el mensaje de éxito.
++      if (EMAILJS_SERVICE_ID && EMAILJS_TEMPLATE_ID && EMAILJS_PUBLIC_KEY) {
++        emailjs
++          .send(
++            EMAILJS_SERVICE_ID,
++            EMAILJS_TEMPLATE_ID,
++            {
++              nombre: name,
++              correo: email,
++              telefono: phone || "No proporcionado",
++              servicio: form.service || "No especificado",
++              mensaje: message,
++              fecha: new Date().toLocaleString("es-MX", { dateStyle: "long", timeStyle: "short" }),
++            },
++            { publicKey: EMAILJS_PUBLIC_KEY }
++          )
++          .catch((e) => console.error("EmailJS:", e));
++      }
++
+       setSent(true);
+     } catch (err) {
+       setError("Hubo un error al enviar. Intenta de nuevo.");
