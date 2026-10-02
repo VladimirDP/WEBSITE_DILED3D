@@ -214,13 +214,13 @@ export default function Hero() {
             <div className="mv-card">
               <h2 className="mv-title font-display">Misión</h2>
               <p className="mv-text">
-                Somos una empresa de manufactura aditiva FDM comprometida con proveer soluciones tecnológicas de alta calidad, precisión y eficiencia para estudiantes, empresas y el público en general en la región de la zona volcanes. Impulsamos la competitividad y la innovación en cada proyecto a través de procesos robustos, optimización de recursos y un estricto control de calidad que garantiza la total satisfacción de nuestros clientes.
+                Transformar ideas en realidades tangibles mediante manufactura aditiva avanzada y diseño a la medida. Conectamos el talento de estudiantes, instituciones y empresas con tecnologías de impresión 3D y corte láser para acelerar la innovación y el desarrollo de prototipos de alta precisión, actuando como el motor tecnológico estratégico de la región.
               </p>
             </div>
             <div className="mv-card">
               <h2 className="mv-title font-display">Visión</h2>
               <p className="mv-text">
-                Consolidarnos como la empresa líder y referente de manufactura aditiva en la región, siendo la primera opción en el mercado gracias a nuestra excelencia operativa y tecnológica. Proyectamos un crecimiento sostenible fundamentado en el desarrollo constante de nuestro capital humano, la adopción de innovaciones industriales y un compromiso firme con los valores institucionales que transforman los objetivos de nuestros socios comerciales en realidades exitosas.
+                Ser el principal hub de innovación y fabricación digital de la región, redefiniendo el futuro del diseño y la producción personalizada a través de la tecnología, y siendo el aliado clave que inspire y empodere a las próximas generaciones de creadores y empresarios.
               </p>
             </div>
           </div>
