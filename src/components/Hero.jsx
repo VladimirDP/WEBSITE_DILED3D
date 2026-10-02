@@ -115,8 +115,8 @@ export default function Hero() {
 
               {/* Heading */}
               <h1 className="fade-up delay-1 font-display" style={{ fontWeight: 700, lineHeight: 1.05, marginBottom: 20, marginTop: 0 }}>
-                <span style={{ display: "block", color: "white", fontSize: "clamp(2.2rem, 4.5vw, 3.2rem)", lineHeight: 1.1 }}>Impresiones</span>
-                <span className="gold-shimmer" style={{ display: "block", fontSize: "clamp(2.2rem, 4.5vw, 3.2rem)", lineHeight: 1.2, paddingBottom: "0.1em" }}>3D</span>
+                <span style={{ display: "block", color: "white", fontSize: "clamp(2.2rem, 4.5vw, 3.2rem)", lineHeight: 1.1 }}>Quiénes</span>
+                <span className="gold-shimmer" style={{ display: "block", fontSize: "clamp(2.2rem, 4.5vw, 3.2rem)", lineHeight: 1.2, paddingBottom: "0.1em" }}>Somos</span>
               </h1>
 
               {/* Description */}
