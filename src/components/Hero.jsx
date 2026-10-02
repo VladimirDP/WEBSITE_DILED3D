@@ -18,6 +18,54 @@ export default function Hero() {
           }
           .hero-logo-col { order: -1; }
         }
+
+        /* Misión y Visión */
+        .mv-grid {
+          display: grid;
+          grid-template-columns: 1fr 1fr;
+          gap: 1.5rem;
+          margin-top: 4.5rem;
+        }
+        .mv-card {
+          background: rgba(255,255,255,0.03);
+          border: 1px solid rgba(201,169,110,0.18);
+          border-radius: 20px;
+          padding: 2.25rem 2rem;
+          position: relative;
+          overflow: hidden;
+        }
+        .mv-card::before {
+          content: "";
+          position: absolute;
+          top: 0; left: 0; right: 0;
+          height: 3px;
+          background: linear-gradient(90deg, #c9a96e, rgba(201,169,110,0));
+        }
+        .mv-label {
+          color: #c9a96e;
+          font-size: 11px;
+          font-weight: 700;
+          text-transform: uppercase;
+          letter-spacing: 0.2em;
+          margin: 0 0 10px;
+        }
+        .mv-title {
+          color: white;
+          font-size: clamp(1.6rem, 3vw, 2rem);
+          font-weight: 700;
+          line-height: 1.15;
+          margin: 0 0 16px;
+        }
+        .mv-text {
+          color: rgba(255,255,255,0.62);
+          font-size: 0.98rem;
+          line-height: 1.85;
+          margin: 0;
+        }
+        @media (max-width: 900px) {
+          .mv-grid { grid-template-columns: 1fr; margin-top: 3rem; }
+          .mv-card { padding: 1.75rem 1.4rem; }
+        }
       `}</style>
 
       <section id="inicio" style={{
@@ -69,14 +117,11 @@ export default function Hero() {
               <h1 className="fade-up delay-1 font-display" style={{ fontWeight: 700, lineHeight: 1.05, marginBottom: 20, marginTop: 0 }}>
                 <span style={{ display: "block", color: "white", fontSize: "clamp(2.2rem, 4.5vw, 3.2rem)", lineHeight: 1.1 }}>Impresiones</span>
                 <span className="gold-shimmer" style={{ display: "block", fontSize: "clamp(2.2rem, 4.5vw, 3.2rem)", lineHeight: 1.2, paddingBottom: "0.1em" }}>3D</span>
-                <span style={{ display: "block", color: "rgba(255,255,255,0.4)", fontSize: "clamp(1.3rem, 2.5vw, 1.8rem)", fontWeight: 300, marginTop: 8 }}>
-                  Desarrollo Tecnológico
-                </span>
               </h1>
 
               {/* Description */}
-              <p className="fade-up delay-2" style={{ color: "rgba(255,255,255,0.38)", fontSize: "1rem", lineHeight: 1.8, marginBottom: 32, maxWidth: 440, marginTop: 0 }}>
-                La impresión 3D está abarcando mucho terreno en la industria, por ello DILED 3D ha pensado en preparar lo mejor para usted: desde pantallas LED de alto impacto hasta sistemas tecnológicos a medida.
+              <p className="fade-up delay-2" style={{ color: "rgba(255,255,255,0.58)", fontSize: "1rem", lineHeight: 1.8, marginBottom: 32, maxWidth: 540, marginTop: 0 }}>
+                DILED 3D es una organización especializada en soluciones de manufactura aditiva y diseño personalizado, consolidada como un aliado estratégico en la región de la zona volcanes. A través de la integración de tecnología de vanguardia en impresión 3D (FDM) y corte láser, la empresa se dedica a la materialización de ideas, el desarrollo de prototipos rápidos y la producción de piezas personalizadas de alta precisión para estudiantes, instituciones educativas y el sector empresarial.
               </p>
 
               {/* Buttons */}
@@ -162,6 +207,22 @@ export default function Hero() {
               </div>
             </div>
 
+          </div>
+
+          {/* Misión y Visión */}
+          <div className="mv-grid fade-up delay-4">
+            <div className="mv-card">
+              <h2 className="mv-title font-display">Misión</h2>
+              <p className="mv-text">
+                Somos una empresa de manufactura aditiva FDM comprometida con proveer soluciones tecnológicas de alta calidad, precisión y eficiencia para estudiantes, empresas y el público en general en la región de la zona volcanes. Impulsamos la competitividad y la innovación en cada proyecto a través de procesos robustos, optimización de recursos y un estricto control de calidad que garantiza la total satisfacción de nuestros clientes.
+              </p>
+            </div>
+            <div className="mv-card">
+              <h2 className="mv-title font-display">Visión</h2>
+              <p className="mv-text">
+                Consolidarnos como la empresa líder y referente de manufactura aditiva en la región, siendo la primera opción en el mercado gracias a nuestra excelencia operativa y tecnológica. Proyectamos un crecimiento sostenible fundamentado en el desarrollo constante de nuestro capital humano, la adopción de innovaciones industriales y un compromiso firme con los valores institucionales que transforman los objetivos de nuestros socios comerciales en realidades exitosas.
+              </p>
+            </div>
           </div>
         </div>
 

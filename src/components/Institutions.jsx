@@ -185,16 +185,16 @@ export default function Institutions() {
         <div style={{ display: "flex", alignItems: "center", gap: 12, marginBottom: 14 }}>
           <div style={{ width: 40, height: 1, background: "rgba(201,169,110,0.4)" }} />
           <span style={{ fontSize: 11, fontWeight: 700, textTransform: "uppercase", letterSpacing: "0.25em", color: "rgba(201,169,110,0.6)" }}>
-            Colaboraciones Institucionales
+            ENCUENTROS, TALLERES Y EVENTOS
           </span>
         </div>
         <div style={{ display: "flex", alignItems: "flex-end", justifyContent: "space-between", flexWrap: "wrap", gap: 16 }}>
           <div>
             <h2 style={{ fontFamily: "'Cormorant Garamond', serif", fontSize: "clamp(2rem, 4vw, 3rem)", fontWeight: 700, color: "white", margin: 0, lineHeight: 1 }}>
-              Colaboraciones{" "}
+              Impulsando el Futuro{" "}
             </h2>
             <p style={{ color: "rgba(255,255,255,0.35)", fontSize: "0.95rem", marginTop: 10, maxWidth: 520, marginBottom: 0 }}>
-              Llevando tecnología e innovación a instituciones educativas del Estado de México y más.
+              Llevamos innovación a cada rincón: desde escuelas hasta ferias de empleo y emprendimiento. Vivimos cada evento con el firme compromiso de potenciar el desarrollo técnico y profesional, imprimiendo el futuro de México.
             </p>
           </div>
         </div>
